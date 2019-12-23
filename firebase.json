@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "treman",
+      "public": "dist/treman",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

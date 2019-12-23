@@ -122,8 +122,13 @@
               "devServerTarget": "treman:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "treman"
 }

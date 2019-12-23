@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "treman-3e399": {
+      "hosting": {
+        "treman": [
+          "treman-3e399"
+        ]
+      }
+    }
+  }
+}
