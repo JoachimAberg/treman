@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Press Start 2P', cursived;
+  -webkit-font-smoothing: none;
+}
+
+$sidebar-width: 400px;
+.sidebar{
+  width: $sidebar-width;
+}
+.spelare-wrapper{
+  margin-bottom: 10px!important;
+}
+.spelare-namn{
+  width:$sidebar-width - 200px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.spelare-btn-wrapper{
+  display: inline-block;
+  button{
+    margin-right: 5px;
+  }
+}
+.spelyta{
+  padding: 50px;
+}
