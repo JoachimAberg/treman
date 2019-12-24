@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="sidebar">
+    <h2 class="nes-text is-primary">Spelare</h2>
+    <treman-spelare *ngFor="let s of spelare; let i=index" [spelare]="s"></treman-spelare>
+    <button type="button" class="nes-btn" (click)="laggTillSpelare()">Lägg till +</button>
+  </div>
+  <div class="spelyta" *ngIf="treman">
+    <h1 >Treman är <span class="nes-text is-success">{{treman.namn}}</span></h1>
+    <button type="button" class="nes-btn" (click)=rulla()>Rulla</button><br>
+    <span class="nes-text is-primary">{{tarning1}}</span>
+    <span class="nes-text is-primary">{{tarning2}}</span>
+  </div>
+</div>

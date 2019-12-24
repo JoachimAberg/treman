@@ -1,0 +1,12 @@
+<div class="spelare-wrapper nes-container is-rounded" [ngClass]="{'is-dark': aktiv}">
+  <div class="spelare-namn">
+    <ng-container *ngIf="edit; else visa">
+      <input type="text" class="nes-input " [(ngModel)]="spelare.namn" />
+    </ng-container>
+    <ng-template #visa>{{ spelare.namn }}</ng-template>
+  </div>
+  <div class="spelare-btn-wrapper">
+    <a class="nes-icon" [ngClass]="{'cog': !edit, 'check': edit}" (click)="edit = !edit"></a>
+    <a class="nes-icon bomb" *ngIf="edit" (click)=tabortSpelare()></a>
+  </div>
+</div>
