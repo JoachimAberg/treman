@@ -14,11 +14,21 @@
     class="spelyta nes-container is-rounded"
     *ngIf="spelare && spelare.length > 1"
   >
-    <div class="tarningswrapper" *ngIf="!(bytTreman && !valtTreman) && !delaUt">
-      <button type="button" class="nes-btn tarning" (click)="rulla()">
+    <div class="tarningswrapper">
+      <button
+        type="button"
+        [disabled]="(bytTreman && !valtTreman) || delaUt?'disabled':''"
+        class="nes-btn tarning"
+        (click)="rulla()"
+      >
         {{ tarning1 }}
       </button>
-      <button type="button" class="nes-btn tarning" (click)="rulla()">
+      <button
+        type="button"
+        [disabled]="(bytTreman && !valtTreman) || delaUt?'disabled':''"
+        class="nes-btn tarning"
+        (click)="rulla()"
+      >
         {{ tarning2 }}
       </button>
     </div>
@@ -36,8 +46,23 @@
         </button>
       </ng-container>
     </div>
+
+    <h2>
+      <span class="nes-text primary">{{ tremanmeddelanderubrik }}</span>
+    </h2>
+    <span class="nes-text primary">{{ tremanmeddelande }}</span>
+    <h2>
+      <span class="nes-text primary">{{ meddelanderubrik }}</span>
+    </h2>
+    <span class="nes-text primary">{{ meddelande }}</span>
     <div *ngIf="delaUt" style="margin-bottom: 15px">
-      <h2>Till vem ska {{antalAttDelaUt===1?'klunken':'klunkarna'}} delas ut?</h2>
+      <h2>
+        <span *ngIf="meddelande==''">
+          {{aktivspelare.namn}} ska dela ut {{antalAttDelaUt}} {{ antalAttDelaUt === 1 ? "klunk" : "klunkar" }}.
+        </span>
+        Till vem ska {{ antalAttDelaUt === 1 ? "klunken" : "klunkarna" }} delas
+        ut?
+      </h2>
       <ng-container *ngFor="let s of spelare">
         <button
           class="nes-btn"
@@ -48,14 +73,5 @@
         </button>
       </ng-container>
     </div>
-    <h2>
-      <span class="nes-text primary">{{ tremanmeddelanderubrik }}</span>
-    </h2>
-    <span class="nes-text primary">{{ tremanmeddelande }}</span>
-    <h2>
-      <span class="nes-text primary">{{ meddelanderubrik }}</span>
-    </h2>
-    <span class="nes-text primary">{{ meddelande }}</span
-    ><br />
   </div>
 </div>

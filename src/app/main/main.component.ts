@@ -54,11 +54,7 @@ export class MainComponent implements OnInit {
     if (this.tarning1 === this.tarning2) {
       nastaSpelare = false;
       this.meddelanderubrik = "Två " + this.tarning1 + ":or";
-      this.meddelande =
-        this.aktivspelare.namn +
-        " ska dela ut " +
-        this.tarning1 +
-        (this.tarning1 === 1 ? " klunk!" : " klunkar!");
+      this.meddelande ="";
       this.delaUt = true;
       this.antalAttDelaUt = this.tarning1;
     } else if (this.tarning1 + this.tarning2 === 7) {
@@ -82,6 +78,7 @@ export class MainComponent implements OnInit {
       this.meddelanderubrik = "Finger på näsan";
       this.meddelande = "Sista spelaren ska ta en klunk!";
       this.antalAttDelaUt = 1;
+      this.delaUt = true;
     }
 
     if (this.tarning1 === 3 || this.tarning2 === 3) {
@@ -124,8 +121,12 @@ export class MainComponent implements OnInit {
   }
 
   public delaUtTill(s: Spelare) {
-    this.delaUt = false;
-    s.klunkar = s.klunkar + this.antalAttDelaUt;
+    s.klunkar = s.klunkar ++;
+    this.antalAttDelaUt--;
+    if(this.antalAttDelaUt === 0){
+      this.delaUt = false;
+      this.nollstallMeddelanden();
+    }
   }
 
   private nollstallMeddelanden() {
@@ -141,10 +142,13 @@ export class MainComponent implements OnInit {
       // tslint:disable-next-line
       !(event.target["nodeName"] === "INPUT") &&
       this.spelare.length > 1 &&
-      (!this.bytTreman || this.valtTreman)
+      (!this.bytTreman || this.valtTreman) &&
+      !this.delaUt
     ) {
       if (event.code === "Space") {
         this.rulla();
+        event.preventDefault();
+        event.stopPropagation();
       }
     }
   }
