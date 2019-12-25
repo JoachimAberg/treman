@@ -43,7 +43,8 @@ testem.log
 /typings
 *.firebase/*
 .cache
-
+# ignore all . folders but include . files
+.*/
 # System Files
 .DS_Store
 Thumbs.db
