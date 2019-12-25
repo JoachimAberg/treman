@@ -20,6 +20,8 @@ export class MainComponent implements OnInit {
   public meddelande = "";
   public bytTreman = false;
   public valtTreman = false;
+  public delaUt = false;
+  public antalAttDelaUt: number;
 
   private nastaTreman: Spelare = null;
 
@@ -57,6 +59,8 @@ export class MainComponent implements OnInit {
         " ska dela ut " +
         this.tarning1 +
         (this.tarning1 === 1 ? " klunk!" : " klunkar!");
+      this.delaUt = true;
+      this.antalAttDelaUt = this.tarning1;
     } else if (this.tarning1 + this.tarning2 === 7) {
       nastaSpelare = false;
       const drickare = this.spelare[
@@ -64,6 +68,7 @@ export class MainComponent implements OnInit {
       ];
       this.meddelanderubrik = "Seven ahead";
       this.meddelande = drickare.namn + " ska ta en klunk!";
+      drickare.klunkar++;
     } else if (this.tarning1 + this.tarning2 === 9) {
       nastaSpelare = false;
       const drickare = this.spelare[
@@ -71,10 +76,12 @@ export class MainComponent implements OnInit {
       ];
       this.meddelanderubrik = "Nine behind";
       this.meddelande = drickare.namn + " ska ta en klunk!";
+      drickare.klunkar++;
     } else if (this.tarning1 + this.tarning2 === 11) {
       nastaSpelare = false;
       this.meddelanderubrik = "Finger på näsan";
       this.meddelande = "Sista spelaren ska ta en klunk!";
+      this.antalAttDelaUt = 1;
     }
 
     if (this.tarning1 === 3 || this.tarning2 === 3) {
@@ -86,14 +93,17 @@ export class MainComponent implements OnInit {
       if (this.tarning1 === 3 && this.tarning2 === 3) {
         this.tremanmeddelanderubrik = "Treor till treman";
         this.tremanmeddelande = this.treman.namn + " ska dricka 2 klunkar";
+        this.treman.klunkar = this.treman.klunkar + 2;
       } else {
         this.tremanmeddelanderubrik = "Trea till treman";
         this.tremanmeddelande = this.treman.namn + " ska dricka 1 klunk";
+        this.treman.klunkar++;
       }
     } else if (this.tarning1 + this.tarning2 === 3) {
       nastaSpelare = false;
       this.tremanmeddelanderubrik = "Trea till treman";
       this.tremanmeddelande = this.treman.namn + " ska dricka 1 klunk";
+      this.treman.klunkar++;
     }
     if (nastaSpelare) {
       if (this.bytTreman) {
@@ -113,6 +123,11 @@ export class MainComponent implements OnInit {
     this.bytTreman = true;
   }
 
+  public delaUtTill(s: Spelare) {
+    this.delaUt = false;
+    s.klunkar = s.klunkar + this.antalAttDelaUt;
+  }
+
   private nollstallMeddelanden() {
     this.tremanmeddelande = "";
     this.meddelande = "";
@@ -122,14 +137,14 @@ export class MainComponent implements OnInit {
 
   @HostListener("document:keyup", ["$event"])
   handleKeyboardEvent(event: KeyboardEvent) {
-    // tslint:disable-next-line
-    console.log(event.target["nodeName"]);
-    // tslint:disable-next-line
-    if (!(event.target["nodeName"] === "INPUT") && this.spelare.length > 1 && (!this.bytTreman||this.valtTreman)) {
-      switch (event.code) {
-        case "Space":
-          this.rulla();
-        // trigger something from the right arrow
+    if (
+      // tslint:disable-next-line
+      !(event.target["nodeName"] === "INPUT") &&
+      this.spelare.length > 1 &&
+      (!this.bytTreman || this.valtTreman)
+    ) {
+      if (event.code === "Space") {
+        this.rulla();
       }
     }
   }

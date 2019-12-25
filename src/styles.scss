@@ -5,20 +5,53 @@ body {
   background-image: url("/assets/background.png");
   background-size: cover;
   background-repeat: no-repeat;
+  @media screen and (max-width: 1000px) {
+    font-size: 10px;
+  }
 }
 .nes-container {
   background: white;
 }
+
+@media (orientation: landscape) {
+  .orientation-meddelande {
+    display: none;
+  }
+}
+
+@media (orientation: portrait) {
+  .orientation-meddelande {
+    display: block;
+    height: 100vh;
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 90vw;
+  }
+}
 $sidebar-width: 400px;
 .sidebar {
-  width: $sidebar-width;
+  @media screen and (max-width: 1000px) {
+    width: 90vw;
+  }
+  @media screen and (min-width: 1001px) {
+    width: $sidebar-width;
+  }
 }
 .spelare-wrapper {
   margin-bottom: 10px !important;
   display: flex;
 }
 .spelare-namn {
-  width: $sidebar-width - 200px;
+  @media screen and (max-width: 1000px) {
+    width: 90vw -200px;
+  }
+  @media screen and (min-width: 1001px) {
+    width: $sidebar-width - 200px;
+  }
   display: inline-block;
   margin-right: 5px;
 }

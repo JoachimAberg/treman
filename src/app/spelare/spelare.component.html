@@ -8,8 +8,8 @@
       <input type="text" class="nes-input " [(ngModel)]="spelare.namn" (keyup.enter)="edit = false" />
     </ng-container>
     <ng-template #visa
-      ><div class="nes-text">
-        {{ spelare.namn }}
+      ><div>
+        <span>{{ spelare.namn }}</span><span class="nes-text is-disabled"> ({{spelare.klunkar}})</span>
       </div></ng-template
     >
   </div>
