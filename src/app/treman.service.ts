@@ -66,4 +66,11 @@ export class TremanService {
       this.spelareLista[index === this.spelareLista.length - 1 ? 0 : index + 1]
     );
   }
+
+  public bytTreman() {
+    const index = this.spelareLista.indexOf(this.tremanBS.value);
+    this.tremanBS.next(
+      this.spelareLista[index === 0 ? this.spelareLista.length - 1 : index + -1]
+    );
+  }
 }

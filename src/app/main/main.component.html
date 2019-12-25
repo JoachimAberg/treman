@@ -1,13 +1,34 @@
 <div class="container">
   <div class="sidebar">
     <h2 class="nes-text is-primary">Spelare</h2>
-    <treman-spelare *ngFor="let s of spelare; let i=index" [spelare]="s"></treman-spelare>
-    <button type="button" class="nes-btn" (click)="laggTillSpelare()">Lägg till +</button>
+    <treman-spelare
+      *ngFor="let s of spelare; let i = index"
+      [spelare]="s"
+    ></treman-spelare>
+    <button type="button" class="nes-btn" (click)="laggTillSpelare()">
+      Lägg till +
+    </button>
   </div>
   <div class="spelyta" *ngIf="treman">
-    <h1 >Treman är <span class="nes-text is-success">{{treman.namn}}</span></h1>
-    <button type="button" class="nes-btn" (click)=rulla()>Rulla</button><br>
-    <span class="nes-text is-primary">{{tarning1}}</span>
-    <span class="nes-text is-primary">{{tarning2}}</span>
+    <h1>
+      Treman är <span class="nes-text is-success">{{ treman.namn }}</span>
+    </h1>
+    <h2>
+      <span class="nes-text primary">{{ tremanmeddelanderubrik }}</span>
+    </h2>
+    <span class="nes-text primary">{{ tremanmeddelande }}</span>
+    <h2>
+      <span class="nes-text primary">{{ meddelanderubrik }}</span>
+    </h2>
+    <span class="nes-text primary">{{ meddelande }}</span
+    ><br />
+    <div class="tarningswrapper">
+      <button type="button" class="nes-btn tarning" (click)="rulla()">
+        {{ tarning1 }}
+      </button>
+      <button type="button" class="nes-btn tarning" (click)="rulla()">
+        {{ tarning2 }}
+      </button>
+    </div>
   </div>
 </div>
