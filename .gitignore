@@ -43,6 +43,8 @@ testem.log
 /typings
 *.firebase/*
 .cache
+.editorconfig
+.firebaserc
 # ignore all . folders but include . files
 .*/
 # System Files
