@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, HostListener } from "@angular/core";
 import { TremanService } from "../treman.service";
 import { Spelare } from "../spelare";
 
@@ -19,6 +19,10 @@ export class MainComponent implements OnInit {
   public meddelanderubrik = "";
   public meddelande = "";
   public bytTreman = false;
+  public valtTreman = false;
+
+  private nastaTreman: Spelare = null;
+
   constructor(private tremanService: TremanService) {
     tremanService.spelare.subscribe(s => {
       this.spelare = s;
@@ -37,7 +41,6 @@ export class MainComponent implements OnInit {
   }
 
   public rulla() {
-
     this.nollstallMeddelanden();
 
     this.tarning1 = Math.floor(Math.random() * 6) + 1;
@@ -50,7 +53,10 @@ export class MainComponent implements OnInit {
       nastaSpelare = false;
       this.meddelanderubrik = "Två " + this.tarning1 + ":or";
       this.meddelande =
-        this.aktivspelare.namn + "ska dela ut " + this.tarning1 + " klunkar!";
+        this.aktivspelare.namn +
+        " ska dela ut " +
+        this.tarning1 +
+        (this.tarning1 === 1 ? " klunk!" : " klunkar!");
     } else if (this.tarning1 + this.tarning2 === 7) {
       nastaSpelare = false;
       const drickare = this.spelare[
@@ -71,34 +77,60 @@ export class MainComponent implements OnInit {
       this.meddelande = "Sista spelaren ska ta en klunk!";
     }
 
-    if(this.tarning1 === 3 || this.tarning2 ===3  || this.tarning1 + this.tarning2 ===3){
+    if (this.tarning1 === 3 || this.tarning2 === 3) {
+      if (this.aktivspelare === this.treman && !this.valtTreman) {
+        this.bytTreman = true;
+      }
+
       nastaSpelare = false;
-      if (this.tarning1 === 3 && this.tarning2 === 3 ) {
-        this.tremanmeddelanderubrik = "2 treor";
+      if (this.tarning1 === 3 && this.tarning2 === 3) {
+        this.tremanmeddelanderubrik = "Treor till treman";
         this.tremanmeddelande = this.treman.namn + " ska dricka 2 klunkar";
-      }
-      else {
-        this.tremanmeddelanderubrik = "1 trea";
+      } else {
+        this.tremanmeddelanderubrik = "Trea till treman";
         this.tremanmeddelande = this.treman.namn + " ska dricka 1 klunk";
-
       }
+    } else if (this.tarning1 + this.tarning2 === 3) {
+      nastaSpelare = false;
+      this.tremanmeddelanderubrik = "Trea till treman";
+      this.tremanmeddelande = this.treman.namn + " ska dricka 1 klunk";
     }
-
-    if(nastaSpelare){
-      this.meddelanderubrik = "Nästa spelare"
-      if(this.bytTreman){
-        this.tremanService.bytTreman();
+    if (nastaSpelare) {
+      if (this.bytTreman) {
+        this.tremanService.bytTreman(this.nastaTreman);
       }
+      this.nollstallMeddelanden();
+      this.meddelanderubrik = "Nästa spelare";
+      this.valtTreman = false;
       this.bytTreman = false;
       this.tremanService.nastaSpelare();
     }
   }
 
-  private nollstallMeddelanden(){
+  public bytTremanTill(s: Spelare) {
+    this.valtTreman = true;
+    this.nastaTreman = s;
+    this.bytTreman = true;
+  }
+
+  private nollstallMeddelanden() {
     this.tremanmeddelande = "";
     this.meddelande = "";
     this.tremanmeddelanderubrik = "";
     this.meddelanderubrik = "";
+  }
 
+  @HostListener("document:keyup", ["$event"])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    // tslint:disable-next-line
+    console.log(event.target["nodeName"]);
+    // tslint:disable-next-line
+    if (!(event.target["nodeName"] === "INPUT") && this.spelare.length > 1) {
+      switch (event.code) {
+        case "Space":
+          this.rulla();
+        // trigger something from the right arrow
+      }
+    }
   }
 }

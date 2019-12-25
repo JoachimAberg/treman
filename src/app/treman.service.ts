@@ -67,10 +67,7 @@ export class TremanService {
     );
   }
 
-  public bytTreman() {
-    const index = this.spelareLista.indexOf(this.tremanBS.value);
-    this.tremanBS.next(
-      this.spelareLista[index === 0 ? this.spelareLista.length - 1 : index + -1]
-    );
+  public bytTreman(s: Spelare) {
+    this.tremanBS.next(s);
   }
 }

@@ -1,18 +1,22 @@
 <div class="container">
   <div class="sidebar">
-    <h2 class="nes-text is-primary">Spelare</h2>
+    <h2 class="nes-text">Spelare</h2>
     <treman-spelare
       *ngFor="let s of spelare; let i = index"
-      [spelare]="s"
+      [spelare]="s" [treman]="s==treman"
     ></treman-spelare>
     <button type="button" class="nes-btn" (click)="laggTillSpelare()">
       Lägg till +
     </button>
   </div>
   <div class="spelyta" *ngIf="treman">
-    <h1>
-      Treman är <span class="nes-text is-success">{{ treman.namn }}</span>
-    </h1>
+    <div *ngIf="bytTreman && !valtTreman">
+      <h2 *ngIf="bytTreman">Byte av treman vid nästa spelarebyte</h2>
+      <h3>Välj nästa treman</h3>
+      <ng-container *ngFor="let s of spelare">
+        <button class="nes-btn"style="margin-right: 10px;" *ngIf="s!==treman" (click)="bytTremanTill(s)">{{s.namn}}</button>
+      </ng-container>
+    </div>
     <h2>
       <span class="nes-text primary">{{ tremanmeddelanderubrik }}</span>
     </h2>

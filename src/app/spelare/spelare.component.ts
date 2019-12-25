@@ -8,21 +8,24 @@ import { TremanService } from "../treman.service";
   styleUrls: ["./spelare.component.scss"]
 })
 export class SpelareComponent implements OnInit {
-  constructor(private treman: TremanService) {}
+  constructor(private tremanService: TremanService) {}
 
   @Input()
   public spelare: Spelare;
+
+  @Input()
+  public treman = false;
 
   public edit = true;
   public aktiv = false;
 
   ngOnInit() {
-    this.treman.aktivSpelare.subscribe(as => {
+    this.tremanService.aktivSpelare.subscribe(as => {
       this.aktiv = this.spelare === as;
     });
   }
 
   tabortSpelare() {
-    this.treman.taBort(this.spelare);
+    this.tremanService.taBort(this.spelare);
   }
 }
