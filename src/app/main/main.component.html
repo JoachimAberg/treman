@@ -9,7 +9,15 @@
       Lägg till +
     </button>
   </div>
-  <div class="spelyta" *ngIf="treman">
+  <div class="spelyta nes-container is-rounded" *ngIf="spelare && spelare.length>1">
+    <div class="tarningswrapper">
+      <button type="button" class="nes-btn tarning" (click)="rulla()">
+        {{ tarning1 }}
+      </button>
+      <button type="button" class="nes-btn tarning" (click)="rulla()">
+        {{ tarning2 }}
+      </button>
+    </div>
     <div *ngIf="bytTreman && !valtTreman">
       <h2 *ngIf="bytTreman">Byte av treman vid nästa spelarebyte</h2>
       <h3>Välj nästa treman</h3>
@@ -26,13 +34,6 @@
     </h2>
     <span class="nes-text primary">{{ meddelande }}</span
     ><br />
-    <div class="tarningswrapper">
-      <button type="button" class="nes-btn tarning" (click)="rulla()">
-        {{ tarning1 }}
-      </button>
-      <button type="button" class="nes-btn tarning" (click)="rulla()">
-        {{ tarning2 }}
-      </button>
-    </div>
+
   </div>
 </div>

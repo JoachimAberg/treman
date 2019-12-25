@@ -125,7 +125,7 @@ export class MainComponent implements OnInit {
     // tslint:disable-next-line
     console.log(event.target["nodeName"]);
     // tslint:disable-next-line
-    if (!(event.target["nodeName"] === "INPUT") && this.spelare.length > 1) {
+    if (!(event.target["nodeName"] === "INPUT") && this.spelare.length > 1 && (!this.bytTreman||this.valtTreman)) {
       switch (event.code) {
         case "Space":
           this.rulla();
